@@ -110,6 +110,6 @@ recomendaciones de qué cosas podemos hacer en esta versión mínima del proyect
 
 ## Materiales
 
-| Tema |
---------
+| Tema                                                         |
+| ------------------------------------------------------------ |
 | [Configuración de tu entorno de trabajo](00-setup/README.md) |

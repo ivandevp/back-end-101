@@ -58,8 +58,8 @@ saber que se puede hacer con él, puedes revisar:
 
 Te preguntas por qué está en inglés :thinking:, pues en este punto de tu carrera
 te habrás dado cuenta que la mayor cantidad de información se encuentra en dicho
-idioma, sin embargo, estoy seguro que conoces algún hack para sobrellevarlo.
+idioma :confused:, sin embargo, estoy seguro que conoces algún hack para sobrellevarlo.
 
 ¿Encontraste una forma de entender el idioma pero no entiendes lo que tienes que
-hacer :emoji:? Tienes el canal del slack del curso disponible para consultar las
+hacer :flushed:? Tienes el canal del slack del curso disponible para consultar las
 dudas que tengas.
