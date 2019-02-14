@@ -107,3 +107,9 @@ recomendaciones de qué cosas podemos hacer en esta versión mínima del proyect
 * Real time?
 * Testing all the things?
 * Docker?
+
+## Materiales
+
+| Tema |
+--------
+| [Configuración de tu entorno de trabajo](00-setup/README.md) |
