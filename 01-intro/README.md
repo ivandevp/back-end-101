@@ -218,3 +218,242 @@ $ segundo-proyecto: node index.js
 Estoy trabajando desde darwin # En mi caso darwin es identificador de mac OS
 $ segundo-proyecto:
 ```
+
+### Más APIs de Node.js disponibles
+
+Vamos a hacer un ejercicio, usando las APIs de File System y Readline, ambos
+con módulos disponibles por defecto en el entorno de Node.js.
+
+El ejercicio constará en pedirle al usuario que ingrese un texto y lo
+almacenaremos en un archivo de nuestra computadora. ¿Logras identificar o inferir
+qué módulo usaremos para qué acción? :thinking:
+
+#### Usando readline
+
+En Node.js, el [módulo readline](https://nodejs.org/api/readline.html) nos
+permite leer datos de un stream línea por línea.
+El stream usado para obtener y escribir datos en la terminal lo podemos encontrar
+en una variable global que viene con Node.js, llamada [`process`](https://nodejs.org/api/process.html).
+
+##### Configurando readline
+
+```js
+// tercer-proyecto/index.js
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+```
+
+De esta manera estamos creando una interface de readline haciendo uso de `process.stdin`
+y `process.stdout` como flujo de datos de entrada y salida respectivamente.
+
+Es así como podremos usar nuestra constante `rl` para interactuar a través de la
+terminal con el usuario (similar a lo que hace un prompt en el navegador).
+
+##### Pidiendo datos al usuario
+
+```js
+// tercer-proyecto/index.js
+// ... -> aquí viene el código anterior
+
+rl.question('Escribe algo que quieras guardar: ', (answer) => {
+    console.log(`Escribiste: ${answer}`);
+
+    rl.close();
+});
+```
+
+El método `.question()` nos permite hacer una pregunta al usuario usando los flujo
+de datos de entrada y salida configuradas en la interface. La forma de manejar
+la respuesta ingresada por el usuario es a través de `callbacks`. El método
+`.question()` nos mandará el texto escrito por el usuario a través del primer
+argumento del callback (en nuestro caso, lo nombramos `answer`), una vez obtenido
+le hemos indicado a Node.js que haga un `console.log` de lo que escribió y por
+último que cierre el flujo de datos para que no se quede esperando a que el usuario
+ingrese otro texto o tenga que salir manualmente.
+
+¡Genial! De esta manera ya le podemos interactuar con el usuario a través de la
+terminal, ¿Está cool no?
+
+Aquí el código completo:
+
+```js
+// tercer-proyecto/index.js
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+
+rl.question('Escribe algo que quieras guardar: ', (answer) => {
+    console.log(`Escribiste: ${answer}`);
+
+    rl.close();
+});
+```
+
+#### Usando fs
+
+En Node.js, el [módulo fs](https://nodejs.org/api/fs.html) nos permite interactuar
+con el sistema de archivos de nuestro sistema operativo. Las operaciones frecuentes
+son: crear y/o leer directorios, crear, editar, leer archivos, entre otros.
+
+##### Escribiendo un archivo
+
+```js
+// cuarto-proyecto/index.js
+const fs = require('fs');
+
+fs.writeFile('prueba.txt', 'Hola mundo', (err) => {
+    if (err) {
+        console.error(`Hubo un error ${error.message}`);
+        return;
+    }
+
+    console.log('El archivo se escribió correctamente');
+});
+```
+
+En este caso, el módulo fs tiene un método llamado `.writeFile()`, el cual recibe
+3 parámetros (la ruta del archivo a escribir, el contenido que se quiere escribir y
+un callback que se ejecuta cuando termina la ejecución del método pasando un objeto
+de error como argumento del mismo). El callback se ejecutará una vez que el contenido
+se ha escrito en el archivo, si el archivo no existe, este lo creará. La condición
+que escribimos en el callback es para identificar si ocurrió un error, en caso así
+fuera le estamos indicando a Node.js que hagamos un `console.log` del mensaje
+de error y luego hacemos un `return;` para salir del callback, si no hacemos
+esto, se imprimiría el `console.log` de que el archivo se escribió con éxito.
+
+Si vemos nuestra carpeta del proyecto, veremos el archivo con el texto _'Hola mundo'_
+dentro. ¿Qué crees que pase si vuelves a ejecutar el mismo script (archivo) con
+un texto diferente? Respuesta: Reemplazará el contenido del archivo.
+
+Este comportamiento puede ser alterado, para que cada vez que se escriba algo
+nuevo se agregue y no modifique lo anterior, para lograr esto, el método `.writeFile()`
+soporta 4 argumentos, siendo el tercero opcional, el cual es un objeto con una
+propiedad llamada [`flag`](https://nodejs.org/api/fs.html#fs_file_system_flags)
+que hace referencia a las opciones del sistema de archivos. El flag que usaremos
+será `'a'` que hace referencia a _appending_ (agregar al final del archivo).
+
+Agregando ese código, nuestro script quedaría así:
+
+```js
+// cuarto-proyecto/index.js
+const fs = require('fs');
+
+fs.writeFile('prueba.txt', 'Nuevo texto', { flag: 'a' }, (err) => {
+    if (err) {
+        console.error(`Hubo un error ${error.message}`);
+        return;
+    }
+
+    console.log('El archivo se escribió correctamente');
+});
+```
+
+#### Mezclando readline y fs
+
+Ahora que hemos visto estas 2 APIs (ḿodulos) por separado, podemos hacer nuestro
+ejercicio uniendo ambas. En este caso, usaremos `readline` para pedirle que el usuario
+escriba un texto y con `fs` guardaremos el texto ingresado en un archivo.
+
+Si pensamos en nuestro código por un momento, lo primero que debemos hacer es
+pedirle al usuario que ingrese el texto, y _una vez obtenido_ escribir el archivo.
+Eso quiere decir de que el siguiente código no funcionaría:
+
+```js
+// quinto-proyecto/index.js
+const fs = require('fs');
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+
+rl.question('Escribe algo que quieras guardar: ', (answer) => {
+    console.log(`Escribiste: ${answer}`);
+
+    rl.close();
+});
+
+fs.writeFile('prueba.txt', 'Nuevo texto', { flag: 'a' }, (err) => {
+    if (err) {
+        console.error(`Hubo un error ${error.message}`);
+        return;
+    }
+
+    console.log('El archivo se escribió correctamente');
+});
+```
+
+Esto debido a que ambos métodos que usamos son asíncronos, y la manera de obtener
+el resultado del primer método y usarlo en el segundo, lo hacemos a través del
+callback, entonces, podemos anidar dichos callbacks algo así:
+
+
+```js
+// quinto-proyecto/index.js
+const fs = require('fs');
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+
+rl.question('Escribe algo que quieras guardar: ', (answer) => {
+    console.log(`Escribiste: ${answer}`);
+
+    fs.writeFile('prueba.txt', answer, { flag: 'a' }, (err) => {
+        if (err) {
+            console.error(`Hubo un error ${error.message}`);
+            return;
+        }
+
+        console.log('El archivo se escribió correctamente');
+    });
+
+    rl.close();
+});
+```
+
+Si probamos nuestro código nuevamente, ahora si obtendremos el resultado esperado,
+simplemente reemplazando agregando nuestro método de `.writeFile()` dentro del
+callback obtenido de `.question()` para tener acceso a la respuesta del primero.
+
+¿Se imaginan si tendríamos que hacer más operaciones asíncronas después de escribir
+el archivo? Seguiríamos anidando callbacks tras callbacks. Esto es un problema
+conocido como [`callback hell`](http://callbackhell.com/). Debido a que esto es
+un problema común y nada nuevo, la especificación de ES6+ ha agregado nuevos features
+que permitan manejar de una manera más legible la asincronía. (Ejemplo: Promises).
+
+Para efectos del contenido teórico y demostrativo, esto está bien. Sin embargo,
+en el [repositorio de ejercicios](https://github.com/ivandevp/back-end-101-exercises),
+podrás encontrar, diversas maneras de como manejar mejor la asincronía en Node.js.
+
+## Reto
+
+Para jugar un poco más con las APIs de Node.js, usando los mismos módulos de
+`readline` y `fs`. Crea un script que le pida al usuario ingresar un texto a
+buscar dentro de un archivo. Y responder con un mensaje del resultado de la búsqueda,
+por ejemplo un mensaje de _encontrado_ o _no existe_.
+
+### Hacker edition
+
+Además de retornar el mensaje, en caso de que se encuentre el texto, indicar
+cuántas veces se repite en todo el texto. Ejemplo
+
+Archivo de texto:
+
+```text
+Hola hola holA HOLA
+```
+
+Texto a buscar: `hola`
+
+Resultado: `El texto 'hola' se encontró 4 veces`.
