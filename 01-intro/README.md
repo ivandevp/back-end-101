@@ -140,3 +140,13 @@ Para salir de tu terminal interactiva de Node (REPL), puedes escribir `.exit` y
 presionar ENTER ó presionar `CTRL+C` 2 veces.
 
 Para mayor información, puedes encontrar la [documentación de Node REPL](https://nodejs.org/api/repl.html).
+
+### ECMAScript en Node.js
+
+A diferencia del navegador, Node.js tiene una programación de releases diferente,
+por lo que los nuevos features de ECMAScript pueden tardar un poco en verse
+reflejadas en Node.js. Para saber qué features puedes usar y cuándo llegan las
+siguientes versiones, puedes ver:
+
+* [Releases de Node.js](https://raw.githubusercontent.com/nodejs/Release/master/schedule.svg?sanitize=true)
+* [Node Green](https://node.green/)
