@@ -112,3 +112,31 @@ ayudarte a hacer este dolor de cabeza algo llevadero. A continuación se listan
 * [n](https://github.com/tj/n)
 
 ### Comenzar a probar JavaScript en el servidor
+
+Para empezar a jugar JavaScript sin tener que abrir el navegador, podemos hacer
+uso del `REPL` (_Read Evaluate Print Loop_), esto lo logramos escribiendo `node`
+en la consola (te darás cuenta que tu _prompt_ cambió).
+
+```bash
+$ node
+> # El prompt cambió a `>` en vez de `$`
+```
+
+Estando con el prompt de ese modo, puedes ejecutar cualquier sentencia de JavaScript,
+tal cual lo harías en la consola del Dev Tools de tu navegador.
+
+```bash
+> console.log('Hola mundo');
+Hola mundo
+> 2 + 3
+5
+>
+```
+
+De esta manera ya tienes una forma rápida de probar tu código JavaScript desde tu
+terminal sin necesidad de un click derecho a un navegador :wink:.
+
+Para salir de tu terminal interactiva de Node (REPL), puedes escribir `.exit` y
+presionar ENTER ó presionar `CTRL+C` 2 veces.
+
+Para mayor información, puedes encontrar la [documentación de Node REPL](https://nodejs.org/api/repl.html).
