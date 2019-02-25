@@ -37,7 +37,7 @@ principal.
 
 El curso se divide en 6 sesiones:
 
-### Sesión 1: ¿Qué es Back-end y cómo es eso que JavaScript se ejecuta en un servidor?
+### [Sesión 1: ¿Qué es Back-end y cómo es eso que JavaScript se ejecuta en un servidor?](01-intro)
 
 En esta sesión, entenderemos cuáles son las tareas comunes que realiza un
 desarrollador Back-end, además de entender qué es Node y para qué nos servirá.
@@ -48,7 +48,7 @@ Una vez que tengamos las cosas claras, veremos más a detalle el entorno de Node
 * NPM
 * APIs nativas de Node.js
 
-### Sesión 2: Creamos el listado de productos
+### [Sesión 2: Creamos el listado de productos](02-apis)
 
 Para mostrar el listado de productos de nuestra aplicación, debemos de tenerlas
 almacenadas en algún lugar, para esto, comenzaremos leyendo los datos desde
