@@ -150,3 +150,71 @@ siguientes versiones, puedes ver:
 
 * [Releases de Node.js](https://raw.githubusercontent.com/nodejs/Release/master/schedule.svg?sanitize=true)
 * [Node Green](https://node.green/)
+
+### Empezar a jugar en serio con Node.js
+
+Si bien el REPL, nos permite escribir código JavaScript que pueda ser interpretado,
+no vamos a estar escribiendo nuestros programas en esta consola interactiva,
+necesitamos nuestro kit de herramientas que nos dan superpoderes como los editores
+de texto, archivos, sistema de control de versiones y demás tooling que puedas
+usar para programar. ¿Cómo replicamos ese workflow para programar con Node.js?
+
+Bien, puedes usar cualquier editor de texto y herramientas que deseas, lo único
+que debes de tener en cuenta es que debes crear archivos con extensión `.js` (sí,
+igual que tus archivos de front-end) y al momento de ejecutarlo, tendrás que abrir
+tu terminal en la ubicación del proyecto y ejecutar `node nombre-archivo.js`.
+
+¿Sencillo, verdad?
+
+Vamos a hacer una prueba. Si tienes el siguiente código:
+
+```js
+// primer-proyecto/index.js
+console.log('Hola mundo');
+```
+
+En tu terminal, escribirías:
+
+```bash
+$ primer-proyecto: node index.js
+Hola mundo
+$ primer-proyecto:
+```
+
+### Módulos
+
+En Node.js usamos módulos como una forma de encapsular código de forma distribuida
+de tal forma que podamos distribuir y usar librerías de una manera más sencilla,
+además de crear una arquitectura de software más escalable y mantenible en el tiempo.
+
+#### Usando módulos
+
+Para usar módulos creados por nosotros, provistos por Node.js o externos (de la
+comunidad o privados) podemos hacer uso de la función global `require()`. Esta
+viende definida por Node.js y no es necesario instalar nada.
+
+Para hacer una prueba, vamos a hacer uso de una API incluida en Node.js para
+saber el sistema operativo sobre la cuál estás trabajando. Esta API está disponible
+a travś del módulo `os`.
+
+Hagámoslo :sunglasses: :
+
+```js
+// segundo-proyecto/index.js
+const os = require('os'); // Requerimos el módulo `os` y lo guardamos en una variable
+
+/**
+ * .platform() es un método del módulo os que nos devuelve un string con la
+ * identificación del sistema operativo que estamos usando
+ * Más info en: https://nodejs.org/api/os.html#os_os_platform
+ **/
+console.log(`Estoy trabajando desde ${os.platform()}`);
+```
+
+Lo ejecutamos:
+
+```bash
+$ segundo-proyecto: node index.js
+Estoy trabajando desde darwin # En mi caso darwin es identificador de mac OS
+$ segundo-proyecto:
+```
